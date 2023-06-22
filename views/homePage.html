@@ -10,11 +10,10 @@
 </head>
 
 <body>
-    <nav class="" >
-    <div class = "home page wrapper container">
-        <header class="header line">
-            <div class = "header line container">
-                <div class = "header navigation" >
+        <header class="header-line">
+        <nav>
+            <div class = "header-line-container">
+                <div class = "header-navigation" >
                     <div class = "place" >
                          <label class="places list"></label>
                          <select id="selectplace" class="input-places"></select>
@@ -29,7 +28,7 @@
                     </div>
                     <div class = "performances style">
                     <label class="performances list"></label>
-                    <select id="selectperformence" class="input-performence-style"></select>
+                    <select id="selectperformence" class="input-performence-style">
                             <option selected>Our performances</option>
                             <option value="ALL" selected>ALL</option>
                             <option value="Mediterranean music">Mediterranean</option>
@@ -40,11 +39,22 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-            Login
-        </button>
+        <button class="login-button" onclick="window.location.href='other-page.html'">Login</button>
+        <button class="shoppingc-button" onclick="window.location.href='other-page.html'"><i class="fa-regular fa-cart-shopping"></i></button>
+        </nav>
         </header>
+    
+    <main>
+    <div class="container"> </div>
+    </main>
+
+    <footer class="footer"> 
+    <div class="footer-acord">
+          <a href="#" class="list-group-item list-group-item-action">Customer Service</a>
+          <a href="#" class="list-group-item list-group-item-action">Contact Us</a>
+          <a href="#" class="list-group-item list-group-item-action">Terms</a>
+          <a href="#" class="list-group-item list-group-item-action">Common questions<a>
+    </footer>
     </div>
 </nav>
 </body>

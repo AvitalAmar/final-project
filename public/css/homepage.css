@@ -1,0 +1,15 @@
+
+
+.header-line{
+    position: relative;
+    display: flex;
+    height: 60px;
+}
+
+.container{
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 12px;
+    padding-left: 12px;
+    width: 100%;
+}
