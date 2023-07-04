@@ -141,6 +141,16 @@ body {
     margin-left: 10px;
     cursor: pointer;
   }
+
+  .ourPlaces-button,
+  .ourEvents-button{
+    background-color: #cbbe77;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+  } 
   
   .login-button:hover,
   .shoppingc-button:hover {

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home Page</title>
-  <link rel="stylesheet" href="C:\Users\ASUS\OneDrive\שולחן העבודה\תואר ראשון - מדעי המחשב\שנה א סמס ב\פיתוח אפליקציות\final-project\public\css\homepage.css">
+  <link rel="stylesheet" href="/css/homepage.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
@@ -15,32 +15,15 @@
     <header class="header-line header-align">
       <div class="header-left-container">
         <div class="place">
-          <label class="places list"></label>
-          <select id="selectplace" class="input-places">
-            <option selected>Our Places</option>
-            <option value="ALL" selected>ALL</option>
-            <option value="Tel Aviv">Tel Aviv</option>
-            <option value="Jerusalem">Jerusalem</option>
-            <option value="Eilat">Eilat</option>
-            <option value="Haifa">Haifa</option>
-            <option value="Beer Sheva">Beer Sheva</option>
-          </select>
+          <button class="ourPlaces-button" onclick="window.location.href='other-page.html'">Our Locations</button>
         </div>
-        <div class = "performances style">
-            <label class="performances list"></label>
-            <select id="selectperformence" class="input-performence-style">
-                    <option selected>Our performances</option>
-                    <option value="ALL" selected>ALL</option>
-                    <option value="Mediterranean music">Mediterranean</option>
-                    <option value="Pop">Pop</option>
-                    <option value="Israeli">Israeli</option>
-                    <option value="Rap">Rap</option>
-                    </select>
+        <div class = "events style">
+          <button class="ourEvents-button" onclick="window.location.href='other-page.html'">Our Events</button>
             </div>
         </div>
         <div class="logo">
         <a href="homepage.html">
-         <img src="C:\Users\ASUS\OneDrive\שולחן העבודה\תואר ראשון - מדעי המחשב\שנה א סמס ב\פיתוח אפליקציות\final-project\public\assets\logo.jpg" alt="Logo" class="logo-image">
+         <img src="/assets/logo.jpg" alt="Logo" class="logo-image">
         </div>
       </div>
       <div class="header-right-container">
@@ -56,10 +39,9 @@
     <a href="performence.html"></a>
         <img src="/assets/events.png" alt="Performance" class="events-image">
     </div>
-  <!--<span class="line"></span>-->
     <div class= "location-content">
         <a href="locations.html"></a>
-            <img src="C:\Users\ASUS\OneDrive\שולחן העבודה\תואר ראשון - מדעי המחשב\שנה א סמס ב\פיתוח אפליקציות\final-project\public\assets\OurLocations.png" alt="Locations" class="locations-image">
+            <img src="/assets/OurLocations.png" alt="Locations" class="locations-image">
         </div>
     </div>
   </main>
