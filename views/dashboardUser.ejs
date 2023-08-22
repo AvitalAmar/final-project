@@ -1,0 +1,282 @@
+<%- include('layout.ejs'); %>
+
+    <% if (user == null || user.role != "user") { %>
+        <%- include('login.ejs') %> 
+    <% }  
+    else 
+    {  %>  
+    
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=places&key=<%= google_maps_api_key %>" ></script>        
+    <input type="hidden" id="user_id" value="<%=user.id %>" ></input> 
+    <input type="hidden" id="user_name" value="<%=user.name %>" ></input>
+   
+    <aside style="position: fixed; overflow-y: auto; bottom: 60px; right: 0; top:0; ">
+        <a href="/logout">
+            <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Logout</button> 
+        </a>
+        
+        <form action="/filterColorProductTable" method="POST">
+            <div style="margin: 5px">
+                <button type="submit" class="btn btn-warning btn-lg">Filter by color</button>             
+            </div>
+            <div style="margin: 5px">
+                <select name="filter_color" class="form-control">
+                    <option >Select color</option>
+                <%
+                if ( productData.length != 0 ) {
+                    var colors = [ ...new Set ( productData.map ( item => item.color) ) ]
+                    colors.forEach ( function ( color ) {
+                %>
+                    <option value="<%=color %>"><%=color %></option>
+                <% } )
+                } %>
+                </select>   
+            </div>              
+        </form>
+
+        <form action="/filterBrandProductTable" method="POST">
+                <div style="margin: 5px">
+                <button type="submit" class="btn btn-warning btn-lg">Filter by brand</button>             
+            </div>
+            <div style="margin: 5px">
+                <select name="filter_brand" class="form-control">
+                    <option >Select brand</option>
+                <%
+                if ( productData.length != 0 ) {
+                    var brands = [ ...new Set ( productData.map ( item => item.brand) ) ]
+                    brands.forEach ( function ( brand ) {
+                %>
+                    <option value="<%=brand %>"><%=brand %></option>
+                <% } )
+                } %>
+                </select>   
+            </div>              
+        </form>
+        <form action="/filterPriceProductTable" method="POST">
+                <div style="margin: 5px">
+                <button type="submit" class="btn btn-warning btn-lg" >Filter by price</button> 
+            </div>
+            <div style="margin: 5px; display: flex; flex-direction: row;">
+                <label style="color: white; width: 50px">From</label>
+                <input name="price_from" class="form-control"></input>
+            </div>    
+            <div style="margin: 5px; display: flex; flex-direction: row;">
+                <label style="color: white; width: 50px">To</label>
+                <input name="price_to" class="form-control"></input>
+            </div>        
+        </form>
+       
+        <div style="margin: 5px">
+            <button type="submit" class="btn btn-warning btn-lg" onclick="filterThreeParams()" >Filter by 3 parameters</button> 
+        </div>
+        <div style="margin: 5px">
+            <select id="brand" class="form-control">
+                <option >Select brand</option>   
+                <%
+                    if ( productData.length != 0 ) {
+                        var brands = [ ...new Set ( productData.map ( item => item.brand ) ) ]
+                        brands.forEach ( function ( brand ) {
+                    %>
+                        <option value="<%=brand %>"><%=brand %></option>
+                    <% } )
+                } %>
+            </select>  
+            </div> 
+        <div style="margin: 5px">           
+            <select id="size" class="form-control">
+                <option >Select size</option> 
+                <%
+                    if ( productData.length != 0 ) {
+                        var sizes = [ ...new Set ( productData.map ( item => item.size ) ) ]
+                        sizes.forEach ( function ( size ) {
+                    %>
+                        <option value="<%=size %>"><%=size %></option>
+                    <% } )
+                } %>
+            </select>
+        </div> 
+        <div style="margin: 5px"> 
+            <select id="color" class="form-control">
+                <option >Select color</option> 
+                <%
+                    if ( productData.length != 0 ) {
+                        var colors = [ ...new Set ( productData.map ( item => item.color ) ) ]
+                        colors.forEach ( function ( color ) {
+                    %>
+                        <option value="<%=color %>"><%=color %></option>
+                    <% })
+                } %>
+            </select>
+        </div> 
+        <div style="margin: 5px">          
+            <a href="/clearFilters"> 
+                <button type="submit" class="btn btn-warning btn-lg">Clear Filters</button> 
+            </a>
+        </div> 
+        
+        <button class="btn btn-primary btn-lg button-block login-button" onclick="showPurchases(null)">Shopping cart</button>              
+    </aside>
+        
+        <section id="tableSection">         
+        <div style="margin: 20px; height: 600px; width: 1000px; overflow: auto">
+        <div id="cards-container" class="table-data" border="1" >            
+            <%
+            if(productData.length!=0){
+            var i=1;
+            productData.forEach(function(data){
+            %>
+            <div class="card">
+                <img id="url_<%=i; %>" src="<%=data.url %>" alt="Avatar" style="width:100%">
+                <div class="container" style="display: flex">
+                    <p id="description_<%=i; %>" style="margin: 5px"><b><%=data.description %></b></p> 
+                    <p id="category_<%=i; %>" style="margin: 5px"><%=data.category %></p> 
+                </div> 
+                <div class="container" style="display: flex; flex-direction: row; margin: 5px;">
+                    <p id="color_<%=i; %>" style="margin: 5px"><%=data.color %></p> 
+                    <p id="size_<%=i; %>" style="margin: 5px"><%=data.size %></p> 
+                    <p id="brand_<%=i; %>" style="margin: 5px"><%=data.brand %></p> 
+                </div> 
+                <div class="container" style="display: flex">
+                    <h4 id="price_<%=i; %>" style="margin: 5px"><b><%=data.price %> $</b></h4> 
+                    <input type="checkbox" style="margin: 5px" id="buy_<%=i; %>">
+                </div> 
+            </div>
+            <%  i++; }) %>
+            <% } else{ %>
+                <tr>
+                    <td colspan="7">No Data Found</td>
+                </tr>
+            <% } %>
+        </div>
+        </div>
+        <div style="margin: 5px">
+          <button class="transform btn btn-warning btn-lg" onclick="buy()">Buy</button>  
+       </div>
+    </section>
+  
+   <div id="dialog" title="Purchases" style="display: none; ">
+        <table id="shopping_cart" border="1" ></table>
+    </div>
+    
+    <div id="map" style="width: 200px; height: 200px; "></div>
+
+    <video id="video_popup" style="display: none; width: 360px;" id="videoPlayer" controls muted="muted" autoplay> 
+        <source src="/video" type="video/mp4">
+        Sorry, your browser doesn't support embedded videos." type="video/mp4">
+    </video>
+
+    
+    <% } %>
+
+<style type="text/css" media="screen, print">
+    #tableSection {
+        position: absolute;
+        bottom: 80px;
+    }
+    header {
+        display: none;
+    }
+
+    #cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;        
+    }
+    
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        margin: 5px 0;
+        width: calc(25% - 15px);
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+    img {
+        height: 120px;        
+    }
+
+</style>  
+
+<script>
+            
+        function buy() {
+            $(".transform").addClass("transform-active");
+            var purchased = [];
+            var time = Date.now();
+            $("input:checked").each(function () {
+                const index = $(this)[0].id.split("buy_")[1];
+                purchased.push({
+                    userId: $("#user_id")[0].value,
+                    purchaseTime: time,
+                    category: $("#category_" + index.toString())[0].textContent,
+                    description: $("#description_" + index.toString())[0].textContent,
+                    price: $("#price_" + index.toString())[0].textContent.split(" ")[0],
+                    color: $("#color_" + index.toString())[0].textContent,
+                    size: $("#size_" + index.toString())[0].textContent,
+                    brand: $("#brand_" + index.toString())[0].textContent,
+                    url: $("#url_" + index.toString())[0].src,
+                });
+            }); 
+            
+            const webMethod = "/buy";
+            
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: JSON.stringify({'purchaseList': purchased}),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (result) {
+                    $(".transform").removeClass("transform-active");
+                    socket.emit("new purchase", { purchase: result, userName: $("#user_name")[0].value })
+                },
+            });
+        }
+       
+        function filterThreeParams() {
+            const webMethod = "/filterThreeParams";
+            
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: JSON.stringify({'brand': $("#brand")[0].value, 'size': $("#size")[0].value, 'color': $("#color")[0].value}),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (result) {
+                    $("#cards-container").empty();
+                    var rows = [];
+                    for (i=0; i<result.length; i++)
+                    {
+                        var row = $('<div class="card">')
+                        row.append($('<img id="url_' + i + '" src="' + result[i]["url"] + '" alt="Avatar" style="width:100%">'))
+                        
+                        var container1 = $('<div class="container" style="display: flex">')
+                        container1.append($('<p id="description_' + i + '" style="margin: 5px"><b>' + result[i]["description"] + '</b></p>')) 
+                        container1.append($('<p id="category_' + i + '" style="margin: 5px">' + result[i]["category"] + '</p>')) 
+                        
+                        var container2 = $('<div class="container" style="display: flex; flex-direction: row; margin: 5px;">')
+                        container2.append($('<p id="color_' + i + '" style="margin: 5px">' + result[i]["color"] + '</p>')) 
+                        container2.append($('<p id="size_' + i + '" style="margin: 5px">' + result[i]["size"] + '</p>')) 
+                        container2.append($('<p id="brand_' + i + '" style="margin: 5px">' + result[i]["brand"] + '</p>')) 
+                        
+                        var container3 = $('<div class="container" style="display: flex">')
+                        container3.append($('<h4 id="price_' + i + '" style="margin: 5px"><b>' + result[i]["price"] + ' $</b></h4>')) 
+                        container3.append($('<input type="checkbox" style="margin: 5px" id="buy_' + i + '">'))                                              
+                        
+                        row.append(container1)
+                        row.append(container2)
+                        row.append(container3)
+
+                        rows.push(row);
+                    }
+                    
+                    for (i = 0; i < rows.length; i = i + 1) {
+                        $("#cards-container").append(rows[i]);
+                    }
+                },
+            });
+        }
+    </script>    

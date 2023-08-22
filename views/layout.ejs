@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+    <title> MVC </title>    
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" >
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com" >
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin >
+    <link href="https://fonts.googleapis.com/css2?family=Comforter&display=swap" rel="stylesheet" >
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" ></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
+    <script src="//code.jquery.com/ui/1.13.2/jquery-ui.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" ></script>
+    <script src="/socket.io/socket.io.js" ></script>
+    <script src="https://d3js.org/d3.v5.js" ></script>    
+    <style type="text/css" media="screen, print">
+           img {
+            border-radius: 5px 5px 0 0; 
+        }
+
+        * {
+            margin: 0;
+        }
+        
+        html, body {
+            height: 100%;
+        }
+        
+        .page-wrap {
+            min-height: 100%;
+            margin-bottom: -60px; 
+        }
+        
+        .page-wrap:after {
+            content: "";
+            display: block;
+        }
+        
+        .site-footer, .page-wrap:after {
+            height: 60px; 
+        }
+
+        header {
+            text-align: center;
+            margin: 20px;
+        }
+
+        table, td, th {  
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+    
+        table {
+            border-collapse: collapse;
+            width: 50%;     
+        }
+
+        .table-data {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        th, td {
+            padding: 15px;
+        }
+
+        #dialog {
+            min-width: 800px;
+            max-height: 600px !important;
+            overflow-y: auto !important;
+            background: gainsboro !important;                           
+        }       
+
+        aside {
+            float: right;
+            background-color: green;
+            padding: 10px;                                 
+        }
+
+        #footer {
+            position: fixed;
+            left: 0px;
+            bottom: 0px;              
+            width: 100%;
+            background: #007b5e !important;
+        }
+        
+        #footer h5 {
+            padding-left: 10px;
+            border-left: 3px solid #eeeeee;
+            padding-bottom: 6px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        
+        #footer a {
+            color: #ffffff;
+            text-decoration: none !important;
+            background-color: transparent;
+            -webkit-text-decoration-skip: objects;
+        }
+        
+        #footer ul.social li {
+            padding: 3px 0;
+        }
+        
+        #footer ul.social li a i {
+            margin-right: 5px;
+            font-size:25px;
+            -webkit-transition: .5s all ease;
+            -moz-transition: .5s all ease;
+            transition: .5s all ease;
+        }
+
+        #footer ul.social li:hover a i {
+            font-size: 30px;
+            margin-top: -10px;
+        }
+      
+        #footer ul.social li a,
+        #footer ul.quick-links li a {
+                color: #ffffff;
+        }
+        
+        #footer ul.social li a:hover {
+            color: #eeeeee;
+        }
+
+        #footer ul.quick-links li {
+            padding: 3px 0;
+            -webkit-transition: .5s all ease;
+            -moz-transition: .5s all ease;
+            transition: .5s all ease;
+        }
+
+        #footer ul.quick-links li:hover {
+            padding: 3px 0;
+            margin-left:5px;
+            font-weight:700;
+        }
+        
+        #footer ul.quick-links li a i {
+            margin-right: 5px;
+        }
+        
+        #footer ul.quick-links li:hover a i {
+            font-weight: 700;
+        }
+
+        @media (max-width:767px){
+            #footer h5 {
+                padding-left: 0;
+                border-left: transparent;
+                padding-bottom: 0px;
+                margin-bottom: 10px;
+            }
+        }
+
+        .transform {
+            transition: all 2s ease;
+            transition-duration: 0.9s;
+        }
+
+        .transform-active {
+            width: 100px;
+        }
+
+        @font-face {
+            font-family: 'LocalFont';
+            font-style: normal;
+            font-weight: 400;
+            src: local('LocalFont'), url('/fonts/LocalFont.ttf') format('truetype');
+        }
+
+        h3 {
+            font-family: 'Comforter', cursive;
+            color: red;
+            text-shadow: 5px 5px 5px #83647e;
+        }
+         
+        p {
+            font-family: 'LocalFont';
+        }
+          
+    </style>  
+</head>
+<body>
+  <header>
+    <h3>MVC project node js express</h3>     
+    <p>Shoes Shop</p>
+    <p>A Shoes Shop for men, woman and kids.</p>
+    <p>It contains well done and buitifull shoes</p> 
+    <p>for summer, winter, jogging etc.</p>
+  </header>
+  <section id="footer" >
+        <footer class="site-footer">         
+            <div class="col text-sm-left text-md-left" style="display: inline-block">
+				<div style="margin: auto;">
+					<nav class="list-unstyled quick-links" >
+						<li style="display: inline-block; margin: 5px"><a href="https://stevemadden.co.il/"><i class="fa fa-angle-double-right"></i>Home</a></li>
+						<li style="display: inline-block; margin: 5px"><a href="javascript:showBranches();"><i class="fa fa-angle-double-right"></i>Branches</a></li>
+						<li style="display: inline-block; margin: 5px"><a href="javascript:showVideo();"><i class="fa fa-angle-double-right"></i>Videos</a></li>
+                        <li style="display: inline-block; margin: 5px"><a href="javascript:void();"><i class="fa fa-facebook"></i></a></li>	
+                        <li><a href="https://www.nationaltransaction.com/">National Transaction Corporation is a Registered MSP/ISO of Elavon, Inc. Georgia [a wholly owned subsidiary of U.S. Bancorp, Minneapolis, MN]</a></li>
+					</nav>
+				</div>				
+			</div>		
+        </footer>
+  </section>
+<script>
+  var socket = io();  
+
+function showPurchases(user_id) {
+    $('#shopping_cart').find ( "tr" ).remove ( )
+    const webMethod = "/getPurchases";
+    var user_id_param = user_id;
+    if ($("#user_id").length > 0)
+        user_id_param = $("#user_id")[0].value;
+    $('#shopping_cart').find("tr").remove();
+    
+    $.ajax({
+        type: "POST",
+        url: webMethod,
+        data: JSON.stringify({'userId': user_id_param}),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (result) {
+            var rows = [];
+            for (i = 0; i < result.length; i = i + 1) {
+                var row = $('<tr style="font-weight: bold; color: blue; text-shadow: 2px 2px 4px #000000;"/>');
+                row.append($('<td />').html((i+1).toString()));
+                row.append($('<td id="purchase_' + i.toString() + '" colspan="4" />').html(moment(result[i]["_id"]).format('hh:mm a MMM DD YYYY'))); 
+                row.append($('<td><button class="btn btn-login btn-lg" onclick="deletePurchase(\'' + user_id_param + '\', ' + i.toString() + ')">Delete</button></td>')); 
+                 
+                rows.push(row);
+                for (k = 0; k < result[i]["records"].length; k = k + 1)
+                {
+                  row = ($('<tr style="font-weight: bold"/>'));
+                  row.append($('<td />').html("Category")); 
+                  row.append($('<td />').html("Description")); 
+                  row.append($('<td />').html("Price")); 
+                  row.append($('<td />').html("Color")); 
+                  row.append($('<td />').html("Size")); 
+                  row.append($('<td />').html("Brand"));    
+                  row.append ( $( '<td />' ).html ( "Url" ) )   
+                  rows.push(row);                   
+                  row = ($('<tr />'));
+                  row.append($('<td />').html(result[i]["records"][k]["category"])); 
+                  row.append($('<td />').html(result[i]["records"][k]["description"])); 
+                  row.append($('<td />').html(result[i]["records"][k]["price"])); 
+                  row.append($('<td />').html(result[i]["records"][k]["color"])); 
+                  row.append($('<td />').html(result[i]["records"][k]["size"])); 
+                  row.append($('<td />').html(result[i]["records"][k]["brand"]));    
+                  row.append ( $( '<td />' ).html ( '<img src="' + result[i]["records"][k]["url"] + '" ></img>') )    
+                  rows.push(row);                       
+                }                        
+            }
+
+            // add all the rows
+            for (i = 0; i < rows.length; i = i + 1) {
+                $("#shopping_cart")[0].append(rows[i][0]);
+            }
+            $("#dialog").dialog();
+        },
+    });
+}
+
+function deletePurchase(user_id, i) {
+    
+    const webMethod = "/deletePurchase";
+    var user_id_param = user_id;
+    if ($("#user_id").length > 0)
+        user_id_param = $("#user_id")[0].value;
+    $.ajax({
+        type: "POST",
+        url: webMethod,
+        data: JSON.stringify({'userId': user_id_param, 'purchaseTime': $( "td[id='purchase_" + i.toString ( ) + "']" )[0].textContent}),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (result) {
+            showPurchases(user_id);
+        },
+    });
+}
+
+function showBranches() {      
+        
+        const webMethod = "/getBranches";
+            
+        $.ajax({
+            type: "POST",
+            url: webMethod,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (result) {
+                var map = new google.maps.Map($('#map')[0], {
+                    zoom: 10,
+                    center: new google.maps.LatLng(31.8927709114605, 34.81127118042523),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+                               
+                var infowindow = new google.maps.InfoWindow();
+                var marker, i;
+                for (i = 0; i < result.length; i++) {  
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(result[i]["latitude"], result[i]["longitude"]),
+                        map: map
+                    });
+                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                        return function() {
+                            infowindow.open ( map, marker )
+                            $("#lat")[0].value = marker.position.lat ( )
+                            $("#lon")[0].value = marker.position.lng ( ) 
+                        }
+                    })(marker, i));   
+                }
+
+                map.addListener("click", (mapsMouseEvent) => {
+                    $("#lat")[0].value = mapsMouseEvent.latLng.toJSON().lat;
+                    $("#lon")[0].value = mapsMouseEvent.latLng.toJSON().lng;
+                });
+            },
+        });       
+}
+
+function showVideo ( ) {
+    $( "#video_popup" ).dialog();
+  }    
+</script>  
