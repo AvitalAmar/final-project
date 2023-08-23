@@ -108,7 +108,6 @@ const filterThreeParams = (req, res) => {
       res.json(docs);
     } else {
         console.log('Failed to retrieve the Product List: ' + err);
-        console.log('check');
     }
   });
 };
