@@ -1,22 +1,46 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const purchaseSchema = new mongoose.Schema({
+const PurchaseSchema = new mongoose.Schema({
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+        type: String,
+        required: true,
     },
-    ticketId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Ticket',
-        required: true
-    },
-    purchaseDate: {
+    purchaseTime: {
         type: Date,
-        default: Date.now
-    }
+        required: true,
+    },
+    category: {
+        type: String,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+    price: {
+        type: Number,
+        required: true,
+    },
+    color: {     
+       type: String,  
+       required: true,     
+    }, 
+    size: {     
+       type: String,       
+       required: true,  
+    }, 
+    brand: {     
+       type: String,       
+       required: true,
+    }, 
+    url:
+    {
+      type: String,
+      required: false,
+      default: "",
+    },  
 });
 
-const Purchase = mongoose.model('Purchase', purchaseSchema);
+const purchaseTable = mongoose.model("purchases", PurchaseSchema);
 
-module.exports = Purchase;
+module.exports = purchaseTable;
