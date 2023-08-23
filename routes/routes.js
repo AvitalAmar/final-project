@@ -3,6 +3,7 @@ const express = require('express');
 const {registerView, loginView, registerUser, loginUser } = require('../controllers/loginController');
 const router = express.Router();
 const { protectRoute } = require("../auth/protect");
+const { dashboardView } = require("../controllers/dashboardController");
 
 router.get('/', registerView);
 router.get('/register', registerView);
