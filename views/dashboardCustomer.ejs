@@ -143,10 +143,10 @@ else
                                         <label style="display:none; color:red; font-size: small;" id="err_url_<%=i; %>" ></label> 
                                     </td>
                                     <td>
-                                        <button type="submit" name="submit" value="Edit" onclick="this.form.submitted=this.value;">Edit</button>
+                                        <button id= "buttons" type="submit" name="submit" value="Edit" onclick="this.form.submitted=this.value;" style="border-radius: 8px;">Edit</button>
                                     </td>
                                     <td>
-                                        <button type="submit" name="submit" value="Delete" onclick="this.form.submitted=this.value;">Delete</button>
+                                        <button id= "buttons" type="submit" name="submit" value="Delete" onclick="this.form.submitted=this.value; "style="border-radius: 8px;">Delete</button>
                                     </td>
                                 </form>
                             </tr>
@@ -161,11 +161,11 @@ else
     </section>
 <% } %>
 
-<div id="dialog" title="Purchases" style="display: none; min-width: 800px">
+<div id="dialog" title="Purchases" style="display: none; width: 360px; max-height: 300px;">
     <table id="shopping_cart" class="table-data" border="1" ></table>
 </div>
 
-<video id="video_popup" style="display: none; width: 360px;" id="videoPlayer" controls muted="muted" autoplay> 
+<video id="video_popup" style="display: none; width: 360px; max-height: 300px; " id="videoPlayer" controls muted="muted" autoplay> 
     <source src="/video" type="video/mp4">
     Sorry, your browser doesn't support embedded videos." type="video/mp4">
 </video>

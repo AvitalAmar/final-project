@@ -77,7 +77,7 @@
 
         aside {
             float: right;
-            background-color: green;
+            background-color: rgb(193, 170, 153);
             padding: 10px;                                 
         }
 
@@ -86,7 +86,7 @@
             left: 0px;
             bottom: 0px;              
             width: 100%;
-            background: #007b5e !important;
+            background: #89735d !important;
         }
         
         #footer h5 {
@@ -184,6 +184,10 @@
          
         p {
             font-family: 'LocalFont';
+        }
+        
+        .pro-button{
+            background: #83647e;
         }
           
     </style>  
@@ -328,6 +332,9 @@ function showBranches() {
 }
 
 function showVideo ( ) {
-    $( "#video_popup" ).dialog();
+    $( "#video_popup" ).dialog({
+        width: 360,
+        maxHeight: 300
+    });
   }    
 </script>  
