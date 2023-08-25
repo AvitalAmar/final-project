@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "auth"
+		},
+		{
+			"path": "controllers"
+		},
+		{
+			"path": "models"
+		},
+		{
+			"path": "public"
+		},
+		{
+			"path": "routes"
+		},
+		{
+			"path": "views"
+		}
+	]
+}
