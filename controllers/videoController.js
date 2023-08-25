@@ -1,5 +1,5 @@
 const fs = require('fs');
-const path = ""
+const path = "public/assets/sample.mp4"
 
 const playVideo = (req, res) => {
     fs.stat(path, (err, stat) => {
