@@ -16,13 +16,13 @@ else
         <select id="all_users" onchange="showUserPurchases( this )" class="form-control"></select>
     </div>
     <hr>
-    <div id="graph" style="margin: 5px; position: fixed; overflow-y: auto;">
+    <div id="graph" style="margin: 5px; position: relative; overflow: auto;">
         <div style="display: flex; flex-direction: row; margin: 5px;">
            <label style="color: white; width: 200px">Sum Average Gaph</label>
            <input type="text" id="date_from" class="form-control" style="width: 120px; margin: 10px;"></input>
            <input type="text" id="date_to" class="form-control" style="width: 120px; margin: 10px;"></input>
         </div>   
-        <button onclick=" createSumAverageGraph() " class="btn btn-primary btn-lg btn-block login-button" >Display Graph</button>
+        <button id="pro-button" onclick=" createSumAverageGraph() " class="btn btn-primary btn-lg btn-block login-button" >Display Graph</button>
         <div id="d3_graph" style="width: 200px; height: 200px" />
     </div>
 </aside>
@@ -34,12 +34,12 @@ else
             <option value="EUR">EUR</option>
             <option value="ILS">ILS</option>
         </select>
-        <button onclick="getCurrency()" class="btn btn-primary btn-lg btn-block login-button">Get Currency</button>
+        <button id="pro-button" onclick="getCurrency()" class="btn btn-primary btn-lg btn-block login-button">Get Currency</button>
         <label id="currency" style="color: white;"></label>
     </div>
     <div id="facebook" style="margin: 5px;">
         <textarea id="fb_posting" rows="4" cols="40" class="form-control"></textarea>
-        <button onclick="createFBPosting()" class="btn btn-primary btn-lg btn-block login-button">Facebook posting</button>
+        <button id="pro-button" onclick="createFBPosting()" class="btn btn-primary btn-lg btn-block login-button">Facebook posting</button>
     </div>  
 </aside>        
 <video id="video_popup" style="width: 360px;" id="videoPlayer" controls muted="muted" autoplay> 
@@ -62,6 +62,15 @@ else
     
     img {
         height: 120px;        
+    }
+
+    .pro-button{
+        background-color: 83647e;
+
+    }
+
+    button{
+        background-color: 83647e;
     }
 
 </style>  
