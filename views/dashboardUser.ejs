@@ -22,7 +22,7 @@
     background-color: rgb(209, 193, 175);
     padding: 16px;">
         <a href="/logout">
-            <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Logout</button> 
+            <button type="submit" class="btn btn-primary btn-lg btn-block login-button" style="background-color: rgb(94, 85, 71); border-color: rgb(94, 85, 71);">Logout</button> 
         </a>
         
         <form action="/filterProductTable" method="POST" style="display: flex; gap: 5px;     align-items: center;">
@@ -73,7 +73,7 @@
             </a>
         </div> 
         
-        <button class="btn btn-primary btn-lg button-block login-button" onclick="showPurchases(null)">Shopping cart</button>              
+        <button class="btn btn-primary btn-lg button-block login-button" onclick="showPurchases(null)" style="background-color: rgb(94, 85, 71); border-color: rgb(94, 85, 71);">Shopping cart</button>              
     </aside>
         <section id="tableSection">         
         <div id="cards-container"  style="display: flex; flex-wrap: wrap; gap : 5px; justify-content: center; margin-top: 100px;">            
@@ -107,7 +107,7 @@
         </div>
         </div>
         <div style="margin: 5px">
-          <button class="transform btn btn-warning btn-lg" onclick="buy()">Add to cart</button>  
+          <button class="transform btn btn-warning btn-lg" onclick="buy()" style="background-color: rgb(157, 150, 143); border-color:  rgb(157, 150, 143);">Add to cart</button>  
        </div>
     </section>
   
