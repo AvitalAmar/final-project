@@ -6,9 +6,9 @@ else
 {  %>  
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=places&key=<%= google_maps_api_key %>" ></script>    
 
-<aside style="background-color:rgb(195, 180, 161) ">
+<aside style="background-color: rgb(225, 218, 208);">
     <a href="/logout">
-        <button type="submit" class="btn btn-primary btn-lg btn-block login-button" style="width: auto;">Logout</button> 
+        <button type="submit" class="btn btn-primary btn-lg btn-block login-button" style="width: auto; background-color: rgb(94, 85, 71); border-color: rgb(94, 85, 71);">Logout</button> 
     </a>
     
     <hr>
@@ -18,14 +18,14 @@ else
     width: 20%;
     margin-inline: auto;
     background-color: rgb(232, 224, 212);">
-        <button onclick="showBranches()" class="btn btn-primary btn-lg btn-block login-button">Show branches</button>
+        <button onclick="showBranches()" class="btn btn-primary btn-lg btn-block login-button" style="background-color: rgb(94, 85, 71); border-color: rgb(94, 85, 71);" >Show branches</button>
         <div id="map" style="width: 200px; height: 200px"></div>
         <div style="margin: 5px; display: flex; flex-direction: row; background-color: rgb(209, 193, 175);">
             <input id="lat" class="form-control"></input>
             <input id="lon" class="form-control"></input>            
         </div>        
-        <button onclick="addBranch()" class="btn btn-primary btn-lg btn-block login-button">Add</button>
-        <button onclick="deleteBranch()" class="btn btn-primary btn-lg btn-block login-button">Delete</button>
+        <button onclick="addBranch()" class="btn btn-primary btn-lg btn-block login-button" style="background-color: rgb(94, 85, 71); border-color: rgb(94, 85, 71);">Add</button>
+        <button onclick="deleteBranch()" class="btn btn-primary btn-lg btn-block login-button" style="background-color: rgb(94, 85, 71); border-color: rgb(94, 85, 71);">Delete</button>
     </div>
 </aside>
 <aside >
@@ -73,7 +73,7 @@ else
         </div>
         <label style="display:none; color:red; font-size: small;" id="err_url_" ></label> 
         
-        <button type="submit" value="Create" onclick="this.form.submitted=this.value;" class="btn btn-primary btn-lg btn-block login-button">Create product</button>
+        <button type="submit" value="Create" onclick="this.form.submitted=this.value;" class="btn btn-primary btn-lg btn-block login-button" style="background-color: rgb(94, 85, 71); border-color: rgb(94, 85, 71);">Create product</button>
     </form>
     </div>
 </aside>
@@ -149,10 +149,10 @@ else
                                         <label style="display:none; color:red; font-size: small;" id="err_url_<%=i; %>" ></label> 
                                     </td>
                                     <td>
-                                        <button type="submit" name="submit" value="Edit" onclick="this.form.submitted=this.value;">Edit</button>
+                                        <button type="submit" name="submit" value="Edit" onclick="this.form.submitted=this.value;" style="border-radius: 8px; background-color: rgb(181, 199, 199);">Edit</button>
                                     </td>
                                     <td>
-                                        <button type="submit" name="submit" value="Delete" onclick="this.form.submitted=this.value;">Delete</button>
+                                        <button type="submit" name="submit" value="Delete" onclick="this.form.submitted=this.value;" style="border-radius: 8px; background-color: rgb(181, 199, 199);">Delete</button>
                                     </td>
                                 </form>
                             </tr>
