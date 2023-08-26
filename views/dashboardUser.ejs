@@ -1,4 +1,4 @@
-<%- include('layout.ejs'); %>
+ <%- include('layout.ejs'); %>
 
     <% if (user == null || user.role != "user") { %>
         <%- include('login.ejs') %> 
@@ -9,19 +9,27 @@
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=places&key=<%= google_maps_api_key %>" ></script>        
     <input type="hidden" id="user_id" value="<%=user.id %>" ></input> 
     <input type="hidden" id="user_name" value="<%=user.name %>" ></input>
-   
-    <aside style="position: fixed; overflow-y: auto; bottom: 60px; right: 0; top:0; ">
+    <div>
+    <aside style="    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(15px) brightness(0.8);
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    left: 0;
+    right: 0;
+    background-color: rgb(209, 193, 175);
+    padding: 16px;">
         <a href="/logout">
             <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Logout</button> 
         </a>
         
-        <form action="/filterColorProductTable" method="POST">
-            <div style="margin: 5px">
-                <button type="submit" class="btn btn-warning btn-lg">Filter by color</button>             
-            </div>
-            <div style="margin: 5px">
-                <select name="filter_color" class="form-control">
-                    <option >Select color</option>
+        <form action="/filterProductTable" method="POST" style="display: flex; gap: 5px;     align-items: center;">
+            <div >
+                <label>Select color:</label>
+                <select name="color" >
+                    <option value="">All</option>
                 <%
                 if ( productData.length != 0 ) {
                     var colors = [ ...new Set ( productData.map ( item => item.color) ) ]
@@ -31,16 +39,11 @@
                 <% } )
                 } %>
                 </select>   
-            </div>              
-        </form>
-
-        <form action="/filterBrandProductTable" method="POST">
-                <div style="margin: 5px">
-                <button type="submit" class="btn btn-warning btn-lg">Filter by brand</button>             
             </div>
-            <div style="margin: 5px">
-                <select name="filter_brand" class="form-control">
-                    <option >Select brand</option>
+            <div >
+                <label>Select brand:</label>
+                <select name="brand">
+                    <option value="">All</option>
                 <%
                 if ( productData.length != 0 ) {
                     var brands = [ ...new Set ( productData.map ( item => item.brand) ) ]
@@ -50,97 +53,51 @@
                 <% } )
                 } %>
                 </select>   
-            </div>              
-        </form>
-        <form action="/filterPriceProductTable" method="POST">
-                <div style="margin: 5px">
-                <button type="submit" class="btn btn-warning btn-lg" >Filter by price</button> 
+            </div>  
+            <div>
             </div>
-            <div style="margin: 5px; display: flex; flex-direction: row;">
-                <label style="color: white; width: 50px">From</label>
-                <input name="price_from" class="form-control"></input>
+            <div >
+                <label class="filter_name">Min Price</label>
+                <input name="min_price"></input>
             </div>    
-            <div style="margin: 5px; display: flex; flex-direction: row;">
-                <label style="color: white; width: 50px">To</label>
-                <input name="price_to" class="form-control"></input>
-            </div>        
+            <div >
+                <label class="filter_name">Max Price</label>
+                <input name="max_price" ></input>
+            </div>  
+            <button class="search_btn" >Search</button>         
         </form>
-       
-        <div style="margin: 5px">
-            <button type="submit" class="btn btn-warning btn-lg" onclick="filterThreeParams()" >Filter by 3 parameters</button> 
-        </div>
-        <div style="margin: 5px">
-            <select id="brand" class="form-control">
-                <option >Select brand</option>   
-                <%
-                    if ( productData.length != 0 ) {
-                        var brands = [ ...new Set ( productData.map ( item => item.brand ) ) ]
-                        brands.forEach ( function ( brand ) {
-                    %>
-                        <option value="<%=brand %>"><%=brand %></option>
-                    <% } )
-                } %>
-            </select>  
-            </div> 
-        <div style="margin: 5px">           
-            <select id="size" class="form-control">
-                <option >Select size</option> 
-                <%
-                    if ( productData.length != 0 ) {
-                        var sizes = [ ...new Set ( productData.map ( item => item.size ) ) ]
-                        sizes.forEach ( function ( size ) {
-                    %>
-                        <option value="<%=size %>"><%=size %></option>
-                    <% } )
-                } %>
-            </select>
-        </div> 
-        <div style="margin: 5px"> 
-            <select id="color" class="form-control">
-                <option >Select color</option> 
-                <%
-                    if ( productData.length != 0 ) {
-                        var colors = [ ...new Set ( productData.map ( item => item.color ) ) ]
-                        colors.forEach ( function ( color ) {
-                    %>
-                        <option value="<%=color %>"><%=color %></option>
-                    <% })
-                } %>
-            </select>
-        </div> 
+
         <div style="margin: 5px">          
-            <a href="/clearFilters"> 
-                <button type="submit" class="btn btn-warning btn-lg">Clear Filters</button> 
+            <a href="/clearFilters" > 
+                <button type="submit" class="search_btn">Clear</button> 
             </a>
         </div> 
         
         <button class="btn btn-primary btn-lg button-block login-button" onclick="showPurchases(null)">Shopping cart</button>              
     </aside>
-        
         <section id="tableSection">         
-        <div style="margin: 20px; height: 600px; width: 1000px; overflow: auto">
-        <div id="cards-container" class="table-data" border="1" >            
+        <div id="cards-container"  style="display: flex; flex-wrap: wrap; gap : 5px; justify-content: center; margin-top: 100px;">            
             <%
             if(productData.length!=0){
             var i=1;
             productData.forEach(function(data){
             %>
-            <div class="card">
-                <img id="url_<%=i; %>" src="<%=data.url %>" alt="Avatar" style="width:100%">
-                <div class="container" style="display: flex">
-                    <p id="description_<%=i; %>" style="margin: 5px"><b><%=data.description %></b></p> 
-                    <p id="category_<%=i; %>" style="margin: 5px"><%=data.category %></p> 
+            <label class="card" style="width:  15rem;">
+                <img id="url_<%=i; %>" src="<%=data.url %>" alt="Avatar" style="width: 100%;aspect-ratio: 1;">
+                <div class="container" >
+                    <p id="description_<%=i; %>" ><b><%=data.description %></b></p> 
+                    <p id="category_<%=i; %>" ><%=data.category %></p> 
                 </div> 
-                <div class="container" style="display: flex; flex-direction: row; margin: 5px;">
-                    <p id="color_<%=i; %>" style="margin: 5px"><%=data.color %></p> 
-                    <p id="size_<%=i; %>" style="margin: 5px"><%=data.size %></p> 
-                    <p id="brand_<%=i; %>" style="margin: 5px"><%=data.brand %></p> 
+                <div class="container" >
+                    <p id="color_<%=i; %>" ><%=data.color %></p> 
+                    <p id="size_<%=i; %>" ><%=data.size %></p> 
+                    <p id="brand_<%=i; %>" ><%=data.brand %></p> 
                 </div> 
-                <div class="container" style="display: flex">
-                    <h4 id="price_<%=i; %>" style="margin: 5px"><b><%=data.price %> $</b></h4> 
-                    <input type="checkbox" style="margin: 5px" id="buy_<%=i; %>">
+                <div class="container" >
+                    <h4 id="price_<%=i; %>" ><b><%=data.price %> $</b></h4> 
+                    <input type="checkbox"  id="buy_<%=i; %>" hidden>
                 </div> 
-            </div>
+            </label>
             <%  i++; }) %>
             <% } else{ %>
                 <tr>
@@ -150,7 +107,7 @@
         </div>
         </div>
         <div style="margin: 5px">
-          <button class="transform btn btn-warning btn-lg" onclick="buy()">Buy</button>  
+          <button class="transform btn btn-warning btn-lg" onclick="buy()">Add to cart</button>  
        </div>
     </section>
   
@@ -158,7 +115,7 @@
         <table id="shopping_cart" border="1" ></table>
     </div>
     
-    <div id="map" style="width: 200px; height: 200px; "></div>
+    <div id="map" style=" height: 200px; "></div>
 
     <video id="video_popup" style="display: none; width: 360px;" id="videoPlayer" controls muted="muted" autoplay> 
         <source src="/video" type="video/mp4">
@@ -169,35 +126,9 @@
     <% } %>
 
 <style type="text/css" media="screen, print">
-    #tableSection {
-        position: absolute;
-        bottom: 80px;
-    }
     header {
         display: none;
     }
-
-    #cards-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;        
-    }
-    
-    .card {
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-        transition: 0.3s;
-        margin: 5px 0;
-        width: calc(25% - 15px);
-    }
-
-    .card:hover {
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    }
-
-    img {
-        height: 120px;        
-    }
-
 </style>  
 
 <script>
@@ -279,4 +210,4 @@
                 },
             });
         }
-    </script>    
+    </script>     
