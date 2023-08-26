@@ -7,38 +7,39 @@ const registerView = (req, res) => {
     name: "",
     email: "",
     password: "",
-    message: ""});
+    message: "",
+  });
 };
 //Post Request for Register
 const registerUser = (req, res) => {
   const { name, email, password, role } = req.body;
-  if (!name || !email || !password ) {
+  if (!name || !email || !password) {
     res.render("register", {
-        name: name,
-        email: email,
-        password: password,
-        role: role,
-        message: "Fill empty fields"
+      name: name,
+      email: email,
+      password: password,
+      role: role,
+      message: "Fill empty fields",
     });
   }
-  else
   //Validation
-  User.findOne({ email: email }).then((user) => {
+  else
+    User.findOne({ email: email }).then((user) => {
       if (user) {
         res.render("register", {
-            name: user.name,
-            email: user.email,
-            password: user.password,
-            role: user.role,
-            message: "email exists"
+          name: user.name,
+          email: user.email,
+          password: user.password,
+          role: user.role,
+          message: "email exists",
         });
       } else {
         //Validation
         const newUser = new User({
           name,
-          email,          
+          email,
           password,
-          role
+          role,
         });
         //Password Hashing
         bcrypt.genSalt(10, (err, salt) =>
@@ -52,14 +53,14 @@ const registerUser = (req, res) => {
           })
         );
       }
-    });  
+    });
 };
 // For View
 const loginView = (req, res) => {
   res.render("login", {
     email: "",
     password: "",
-    message: req.flash('loginMessage') 
+    message: req.flash("loginMessage"),
   });
 };
 
@@ -71,7 +72,7 @@ const loginUser = (req, res, next) => {
     res.render("login", {
       email: email,
       password: password,
-      message: "Please fill in all the fields"
+      message: "Please fill in all the fields",
     });
   } else {
     passport.authenticate("local", {
@@ -81,6 +82,7 @@ const loginUser = (req, res, next) => {
     })(req, res, next);
   }
 };
+
 module.exports = {
   registerView,
   loginView,
